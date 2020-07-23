@@ -5,6 +5,8 @@ services:
     image: ${IMAGE_NAME:-grafana/grafana}:${IMAGE_TAG:-latest}
     environment:
       GF_SERVER_ROOT_URL: http://${PUBLIC_HOSTNAME}/${GRAFANA_PATH}
+      GF_SERVER_SERVE_FROM_SUB_PATH:
+      GF_SERVER_DOMAIN: ${PUBLIC_HOSTNAME}
       GF_PATHS_DATA:
       GF_PATHS_PROVISIONING:
       GF_INSTALL_PLUGINS:
