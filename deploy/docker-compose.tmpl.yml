@@ -1,10 +1,10 @@
-version: '3.5'
+version: '3.7'
 
 services:
   grafana:
     image: ${IMAGE_NAME:-grafana/grafana}:${IMAGE_TAG:-latest}
     environment:
-      GF_SERVER_ROOT_URL: ${TRAEFIK_PROTOCOL}://${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}
+      GF_SERVER_ROOT_URL: http://${PUBLIC_HOSTNAME}/${GRAFANA_PATH}
       GF_PATHS_DATA:
       GF_PATHS_PROVISIONING:
       GF_INSTALL_PLUGINS:
@@ -28,10 +28,10 @@ services:
       DASHBOARDS_PATH:
       PROMETHEUS_URL:
     networks:
-      metric-net:
+      monitoring-net:
       traefik-net:
     volumes:
-      - data-vol:${GF_PATHS_DATA}
+      - grafana-data-vol:${GF_PATHS_DATA}
     configs:
       - source: datasources-config
         target: ${GF_PATHS_PROVISIONING}/datasources/datasources.yml
@@ -73,9 +73,9 @@ services:
           memory: ${RESOURCES_RESERVATIONS_MEMORY:-128M}
 
 networks:
-  metric-net:
-    name: ${METRIC_NET_NAME:-metric-net}
-    driver: ${METRIC_NET_DRIVER:-overlay}
+  monitoring-net:
+    name: ${MONITORING_NET_NAME:-monitoring-net}
+    driver: ${MONITORING_NET_DRIVER:-overlay}
     external: true
 
   traefik-net:
@@ -115,3 +115,7 @@ configs:
   traefik-dashboard-config:
     name: ${TRAEFIK_DASHBOARD_CONFIG_NAME:-grafana-traefik-dashboard}
     file: ./config/dashboards/traefik.json
+
+volumes:
+  grafana-data-vol:
+    name: ${GRAFANA_DATA_VOL_NAME}
