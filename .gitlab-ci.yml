@@ -14,4 +14,4 @@ variables:
     STACK: ${PROJECT_PARENT_NAME}
     SERVICES_TO_CHECK: ${PROJECT_PARENT_NAME}_${CI_PROJECT_NAME}
   environment:
-    url: http://${PUBLIC_HOSTNAME}/${CI_PROJECT_NAME}
+    url: https://${PUBLIC_HOSTNAME}/${CI_PROJECT_NAME}
