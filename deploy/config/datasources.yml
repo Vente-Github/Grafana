@@ -4,9 +4,6 @@ deleteDatasources:
   - name: Prometheus
     orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
 
-  - name: Elasticsearch-Fluentd
-    orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
-
 datasources:
   - name: Prometheus
     type: prometheus
