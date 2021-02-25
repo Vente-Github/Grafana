@@ -19,7 +19,7 @@
   "gnetId": 12250,
   "graphTooltip": 0,
   "id": 13,
-  "iteration": 1603186675265,
+  "iteration": 1614256098088,
   "links": [],
   "panels": [
     {
@@ -690,8 +690,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "alertmanager@docker",
-          "value": "alertmanager@docker"
+          "text": "cartographic-viewer@docker",
+          "value": "cartographic-viewer@docker"
         },
         "datasource": "Prometheus",
         "definition": "label_values(service)",
