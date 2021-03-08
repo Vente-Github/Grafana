@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 12485,
   "graphTooltip": 0,
-  "id": 15,
-  "iteration": 1595583813712,
+  "id": 2,
+  "iteration": 1614256439767,
   "links": [],
   "panels": [
     {
@@ -1039,7 +1039,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "pg_settings_shared_buffers_bytes{instance=\"10.0.1.22:9187\", job=\"postgres-exporter\", server=\"vente-db:5432\"}",
+      "tableColumn": "pg_settings_shared_buffers_bytes{instance=\"10.0.1.60:9187\", job=\"postgres-exporter\", server=\"vente-db:5432\"}",
       "targets": [
         {
           "expr": "pg_settings_shared_buffers_bytes{instance=\"$Instance\"}",
@@ -1128,7 +1128,7 @@
         "ymax": null,
         "ymin": null
       },
-      "tableColumn": "pg_settings_max_connections{instance=\"10.0.1.22:9187\", job=\"postgres-exporter\", server=\"vente-db:5432\"}",
+      "tableColumn": "pg_settings_max_connections{instance=\"10.0.1.60:9187\", job=\"postgres-exporter\", server=\"vente-db:5432\"}",
       "targets": [
         {
           "expr": "pg_settings_max_connections{instance=\"$Instance\"}",
@@ -3433,13 +3433,6 @@
         }
       ],
       "repeat": "Database",
-      "scopedVars": {
-        "Database": {
-          "selected": false,
-          "text": "vente",
-          "value": "vente"
-        }
-      },
       "title": "Database: $Database",
       "type": "row"
     }
@@ -3454,8 +3447,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "10.0.1.22:9187",
-          "value": "10.0.1.22:9187"
+          "text": "10.0.1.60:9187",
+          "value": "10.0.1.60:9187"
         },
         "datasource": "Prometheus",
         "definition": "label_values({job=\"postgres-exporter\"}, instance)",
@@ -3587,5 +3580,5 @@
   "timezone": "",
   "title": "PostgreSQL Exporter",
   "uid": "v5ciIbUZz",
-  "version": 1
+  "version": 2
 }
