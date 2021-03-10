@@ -15,90 +15,9 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1614691904017,
+  "iteration": 1615363188992,
   "links": [],
   "panels": [
-    {
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [
-            {
-              "from": "0",
-              "id": 0,
-              "text": "OK",
-              "to": "2592000",
-              "type": 2
-            },
-            {
-              "from": "2592000",
-              "id": 1,
-              "text": "Error",
-              "to": "",
-              "type": 2
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-orange",
-                "value": null
-              },
-              {
-                "color": "semi-dark-green",
-                "value": 0
-              },
-              {
-                "color": "#EAB839",
-                "value": 2592000
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 12,
-        "y": 0
-      },
-      "id": 31,
-      "interval": "7d",
-      "maxDataPoints": 1,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "value_and_name"
-      },
-      "pluginVersion": "7.4.3",
-      "targets": [
-        {
-          "expr": "time() - arcgis_backup_created_date_seconds{type=\"full\"} < 2592000 and arcgis_backup_size_bytes{type=\"full\"} > 0",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Backup - Full",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
-      "type": "stat"
-    },
     {
       "collapsed": false,
       "datasource": null,
@@ -106,7 +25,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 0
       },
       "id": 5,
       "panels": [],
@@ -208,7 +127,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 4
+        "y": 1
       },
       "id": 2,
       "options": {
@@ -338,7 +257,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 4
+        "y": 1
       },
       "id": 14,
       "options": {
@@ -468,7 +387,7 @@
         "h": 3,
         "w": 3,
         "x": 6,
-        "y": 4
+        "y": 1
       },
       "id": 21,
       "options": {
@@ -598,7 +517,7 @@
         "h": 3,
         "w": 3,
         "x": 9,
-        "y": 4
+        "y": 1
       },
       "id": 24,
       "options": {
@@ -679,7 +598,7 @@
         "h": 3,
         "w": 3,
         "x": 12,
-        "y": 4
+        "y": 1
       },
       "id": 27,
       "interval": "7d",
@@ -750,7 +669,7 @@
         "h": 3,
         "w": 3,
         "x": 15,
-        "y": 4
+        "y": 1
       },
       "id": 32,
       "options": {
@@ -880,7 +799,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 7
+        "y": 4
       },
       "id": 3,
       "options": {
@@ -1010,7 +929,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 7
+        "y": 4
       },
       "id": 7,
       "options": {
@@ -1140,7 +1059,7 @@
         "h": 3,
         "w": 3,
         "x": 9,
-        "y": 7
+        "y": 4
       },
       "id": 25,
       "options": {
@@ -1176,6 +1095,87 @@
       "type": "stat"
     },
     {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "0",
+              "id": 0,
+              "text": "OK",
+              "to": "2592000",
+              "type": 2
+            },
+            {
+              "from": "2592000",
+              "id": 1,
+              "text": "Error",
+              "to": "",
+              "type": 2
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-orange",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 2592000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 12,
+        "y": 4
+      },
+      "id": 31,
+      "interval": "7d",
+      "maxDataPoints": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "7.4.3",
+      "targets": [
+        {
+          "expr": "time() - arcgis_backup_created_date_seconds{type=\"full\"} < 2592000 and arcgis_backup_size_bytes{type=\"full\"} > 0",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Backup - Full",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "breakPoint": "50%",
       "cacheTimeout": null,
@@ -1200,7 +1200,7 @@
         "h": 6,
         "w": 6,
         "x": 0,
-        "y": 10
+        "y": 7
       },
       "id": 20,
       "interval": null,
@@ -1261,7 +1261,7 @@
         "h": 6,
         "w": 6,
         "x": 6,
-        "y": 10
+        "y": 7
       },
       "id": 11,
       "interval": null,
@@ -1303,37 +1303,6 @@
       "valueName": "current"
     },
     {
-      "datasource": "Loki",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 16
-      },
-      "id": 34,
-      "options": {
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "7.4.3",
-      "targets": [
-        {
-          "expr": "{job=\"portal-for-arcgis\"}",
-          "refId": "A"
-        }
-      ],
-      "title": "Panel Title",
-      "type": "logs"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -1351,7 +1320,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 16,
@@ -1457,7 +1426,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 23
       },
       "hiddenSeries": false,
       "id": 17,
@@ -1562,7 +1531,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 33
       },
       "hiddenSeries": false,
       "id": 18,
@@ -1778,7 +1747,7 @@
         "h": 15,
         "w": 24,
         "x": 0,
-        "y": 54
+        "y": 43
       },
       "id": 12,
       "options": {
@@ -1950,7 +1919,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 69
+        "y": 58
       },
       "id": 9,
       "options": {
@@ -2089,7 +2058,7 @@
         "h": 17,
         "w": 12,
         "x": 0,
-        "y": 73
+        "y": 62
       },
       "id": 13,
       "options": {
@@ -2258,5 +2227,5 @@
   "timezone": "",
   "title": "ArcGIS Enterprise",
   "uid": "rfw7AhIMz",
-  "version": 71
+  "version": 72
 }
