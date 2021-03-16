@@ -4,9 +4,9 @@ services:
   grafana:
     image: ${IMAGE_NAME:-grafana/grafana}:${IMAGE_TAG:-latest}
     environment:
-      GF_SERVER_ROOT_URL: http://${PUBLIC_HOSTNAME}${GRAFANA_PATH}
+      GF_SERVER_ROOT_URL: http://${INTERNAL_HOSTNAME}${GRAFANA_PATH}
       GF_SERVER_SERVE_FROM_SUB_PATH:
-      GF_SERVER_DOMAIN: ${PUBLIC_HOSTNAME}
+      GF_SERVER_DOMAIN: ${INTERNAL_HOSTNAME}
       GF_PATHS_DATA:
       GF_PATHS_PROVISIONING:
       GF_INSTALL_PLUGINS:
@@ -64,7 +64,7 @@ services:
       labels:
         traefik.enable: 'true'
         traefik.http.routers.grafana.entrypoints: http
-        traefik.http.routers.grafana.rule: Host(`${PUBLIC_HOSTNAME}`) && PathPrefix(`${GRAFANA_PATH}`)
+        traefik.http.routers.grafana.rule: Host(`${INTERNAL_HOSTNAME}`) && PathPrefix(`${GRAFANA_PATH}`)
         traefik.http.services.grafana.loadbalancer.server.port: '${GF_SERVER_HTTP_PORT}'
         traefik.http.middlewares.grafana-stripprefix.stripprefix.prefixes: ${GRAFANA_PATH}
         traefik.http.routers.grafana.middlewares: grafana-stripprefix
