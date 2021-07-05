@@ -1,10 +1,12 @@
-version: '3.5'
+version: '3.7'
 
 services:
   grafana:
     image: ${IMAGE_NAME:-grafana/grafana}:${IMAGE_TAG:-latest}
     environment:
-      GF_SERVER_ROOT_URL: ${TRAEFIK_PROTOCOL}://${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}
+      GF_SERVER_ROOT_URL: http://${INTERNAL_HOSTNAME}${GRAFANA_PATH}
+      GF_SERVER_SERVE_FROM_SUB_PATH:
+      GF_SERVER_DOMAIN: ${INTERNAL_HOSTNAME}
       GF_PATHS_DATA:
       GF_PATHS_PROVISIONING:
       GF_INSTALL_PLUGINS:
@@ -28,10 +30,11 @@ services:
       DASHBOARDS_PATH:
       PROMETHEUS_URL:
     networks:
-      metric-net:
+      log-net:
+      monitoring-net:
       traefik-net:
     volumes:
-      - data-vol:${GF_PATHS_DATA}
+      - grafana-data-vol:${GF_PATHS_DATA}
     configs:
       - source: datasources-config
         target: ${GF_PATHS_PROVISIONING}/datasources/datasources.yml
@@ -39,6 +42,8 @@ services:
         target: ${GF_PATHS_PROVISIONING}/dashboards/dashboards_providers.yml
       - source: nodes-dashboard-config
         target: ${DASHBOARDS_PATH}/swarmprom-nodes.json
+      - source: arcgis-enterprise-dashboard-config
+        target: ${DASHBOARDS_PATH}/arcgis-enterprise.json
       - source: services-dashboard-config
         target: ${DASHBOARDS_PATH}/swarmprom-services.json
       - source: prometheus-dashboard-config
@@ -49,18 +54,21 @@ services:
         target: ${DASHBOARDS_PATH}/postgres.json
       - source: traefik-dashboard-config
         target: ${DASHBOARDS_PATH}/traefik.json
+      - source: windows-server-dashboard-config
+        target: ${DASHBOARDS_PATH}/windows-server.json
+      - source: windows-server-nodes-dashboard-config
+        target: ${DASHBOARDS_PATH}/windows-server-nodes.json
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
       labels:
         traefik.enable: 'true'
         traefik.http.routers.grafana.entrypoints: http
-        traefik.http.routers.grafana.rule: Host(`${PUBLIC_HOSTNAME}`) && PathPrefix(`${GRAFANA_PATH}`)
+        traefik.http.routers.grafana.rule: Host(`${INTERNAL_HOSTNAME}`) && PathPrefix(`${GRAFANA_PATH}`)
         traefik.http.services.grafana.loadbalancer.server.port: '${GF_SERVER_HTTP_PORT}'
         traefik.http.middlewares.grafana-stripprefix.stripprefix.prefixes: ${GRAFANA_PATH}
         traefik.http.routers.grafana.middlewares: grafana-stripprefix
         traefik.http.routers.grafana.service: grafana
-
       restart_policy:
         delay: ${RESTART_DELAY:-10s}
       update_config:
@@ -74,9 +82,14 @@ services:
           memory: ${RESOURCES_RESERVATIONS_MEMORY:-128M}
 
 networks:
-  metric-net:
-    name: ${METRIC_NET_NAME:-metric-net}
-    driver: ${METRIC_NET_DRIVER:-overlay}
+  log-net:
+    name: ${LOG_NET_NAME:-log-net}
+    driver: ${LOG_NET_DRIVER:-overlay}
+    external: true
+
+  monitoring-net:
+    name: ${MONITORING_NET_NAME:-monitoring-net}
+    driver: ${MONITORING_NET_DRIVER:-overlay}
     external: true
 
   traefik-net:
@@ -96,6 +109,10 @@ configs:
   nodes-dashboard-config:
     name: ${NODES_DASHBOARD_CONFIG_NAME:-grafana-nodes-dashboard}
     file: ./config/dashboards/swarmprom-nodes.json
+  
+  arcgis-enterprise-dashboard-config:
+    name: ${ARCGIS_ENTERPRISE_DASHBOARD_CONFIG_NAME:-grafana-arcgis-enterprise-dashboard}
+    file: ./config/dashboards/arcgis-enterprise.json
 
   services-dashboard-config:
     name: ${SERVICES_DASHBOARD_CONFIG_NAME:-grafana-services-dashboard}
@@ -116,3 +133,15 @@ configs:
   traefik-dashboard-config:
     name: ${TRAEFIK_DASHBOARD_CONFIG_NAME:-grafana-traefik-dashboard}
     file: ./config/dashboards/traefik.json
+
+  windows-server-dashboard-config:
+    name: ${WINDOWS_SERVER_DASHBOARD_CONFIG_NAME:-grafana-windows-server-dashboard}
+    file: ./config/dashboards/windows-server.json
+
+  windows-server-nodes-dashboard-config:
+    name: ${WINDOWS_SERVER_NODES_DASHBOARD_CONFIG_NAME:-grafana-windows-server-nodes-dashboard}
+    file: ./config/dashboards/windows-server-nodes.json
+
+volumes:
+  grafana-data-vol:
+    name: ${GRAFANA_DATA_VOL_NAME}
