@@ -13,3 +13,12 @@ datasources:
     isDefault: true
     version: 1
     editable: true
+
+  - name: Loki
+    type: loki
+    access: proxy
+    orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
+    url: ${LOKI_URL}
+    isDefault: false
+    version: 1
+    editable: true
